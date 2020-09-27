@@ -1,4 +1,42 @@
 /* Your styles should be mobile-first and responsive */
+body {
+  background-color: #000000;
+  font-family: 'Roboto', sans-serif;
+}
+
+#container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  justify-items: center;
+  background-color: #ffffff;
+  min-height: 100$;
+  width: 90%;
+  margin: 10% auto;
+  text-align: center;
+  padding: 0;
+}
+
+header {
+  grid-column: span 5;
+  margin: 0;
+  padding: 0;
+}
+
+header > h1 {
+  margin: 0;
+  padding: 0;
+}
+
+header > img {
+  width: 300px;
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  grid-column: span 5;
+}
 
 /** 
   * If you are unclear on how to utilize a mobile-first, responsive technique to write your CSS, here is an example: 
