@@ -1,16 +1,16 @@
 /* Your styles should be mobile-first and responsive */
 body {
-  background-color: #000000;
+  background-color: rgb(37,40,73);
   font-family: 'Roboto', sans-serif;
 }
 
 #container {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(2, 1fr);
+  grid-template-rows: repeat(3, auto);
   justify-items: center;
   background-color: #ffffff;
-  min-height: 100$;
+  min-height: 100;
   width: 90%;
   margin: 10% auto;
   text-align: center;
@@ -21,6 +21,10 @@ header {
   grid-column: span 5;
   margin: 0;
   padding: 0;
+}
+
+form {
+  padding: 10px;
 }
 
 header > h1 {
@@ -36,6 +40,41 @@ header > img {
 
 main {
   grid-column: span 5;
+}
+
+ol {
+  display: inline;
+  list-style-type: none;
+}
+
+label {
+  color: #000000;
+}
+
+.option-a {
+  color: rgb(51,119,171);
+}
+
+.option-b {
+  color: rgb(225,57,56);
+}
+
+.option-c {
+  color: rgb(240,179,76);
+}
+
+.option-d {
+  color: rgb(86,166,94);
+}
+
+button[type="submit"] {
+  display: block;
+  background-color: rgb(37,40,73);
+  color: #ffffff;
+  font-size: 1.2rem;
+  margin: 30px auto;
+  padding: 10px 30px;
+  border-radius: 5px;
 }
 
 /** 
