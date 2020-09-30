@@ -19,12 +19,17 @@ body {
 
 header {
   grid-column: span 5;
-  margin: 0;
+  margin: 40px 0 0 0;
   padding: 0;
 }
 
 form {
-  padding: 10px;
+  padding: 0 10px;
+}
+
+form > p {
+  margin: 30px auto;
+  padding: 0;
 }
 
 header > h1 {
@@ -32,7 +37,7 @@ header > h1 {
   padding: 0;
 }
 
-header > img {
+main > img {
   width: 300px;
   margin: 0;
   padding: 0;
@@ -47,23 +52,27 @@ ol {
   list-style-type: none;
 }
 
+li {
+  text-align: left;
+}
+
 label {
   color: #000000;
 }
 
-.option-a {
+.option-0 {
   color: rgb(51,119,171);
 }
 
-.option-b {
+.option-1 {
   color: rgb(225,57,56);
 }
 
-.option-c {
+.option-2 {
   color: rgb(240,179,76);
 }
 
-.option-d {
+.option-3 {
   color: rgb(86,166,94);
 }
 
