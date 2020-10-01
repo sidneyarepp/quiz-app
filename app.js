@@ -88,7 +88,8 @@ const store = {
   questionNumber: 0,
   totalCorrect: 0,
   startQuiz: false,
-  userAnswers: []
+  userAnswers: [],
+  undefinedAnswer: 0
 };
 
 /**
@@ -140,32 +141,31 @@ function quizQuestionTemplate(){
   `;
 }
 
-function answerPageTemplate(){
-  const currentQuestionData = store.questions[store.questionNumber];
-  const currentCorrectAnswer = currentQuestionData.correctAnswer;
-  const userAnswer = store.userAnswers[store.questionNumber];
-  if(userAnswer === currentCorrectAnswer){
-    return `
-    <img src="olympic-rings.png" alt="olympic rings">
-    <form>
-    <p>You answered the question correctly. It was "${currentCorrectAnswer}"</p>
-    <p>You've currently answered ${store.totalCorrect} out of ${store.questionNumber + 1} correct.</p> 
-    <p>Please click the "Continue" button to continue the quiz.</p>
-    <button type="submit" id="continue-quiz">Continue</button>
-    </form>
-    `;
-  } else {
-    return `
-    <img src="olympic-rings.png" alt="olympic rings">
-    <form>
-    <p>You answered the question incorrectly.</p>
-    <p>The correct answer was "${currentCorrectAnswer}".</p>
-    <p>You've currently answered ${store.totalCorrect} out of ${store.questionNumber + 1} correct.</p>
-    <p>Please click the "Continue" button to continue the quiz.</p>
-    <button type="submit" id="continue-quiz">Continue</button>
-    </form>
-    `;
-  }
+function correctAnswerPageTemplate(){
+  const currentCorrectAnswer = store.questions[store.questionNumber].correctAnswer  
+  return `
+  <img src="olympic-rings.png" alt="olympic rings">
+  <form>
+  <p>You answered the question correctly. It was "${currentCorrectAnswer}"</p>
+  <p>You've currently answered ${store.totalCorrect} out of ${store.questionNumber + 1} correct.</p> 
+  <p>Please click the "Continue" button to continue the quiz.</p>
+  <button type="submit" id="continue-quiz">Continue</button>
+  </form>
+  `;
+}
+
+function incorrectAnswerPageTemplate(){
+  const currentCorrectAnswer = store.questions[store.questionNumber].correctAnswer
+  return `
+  <img src="olympic-rings.png" alt="olympic rings">
+  <form>
+  <p class="bad">You answered the question incorrectly.</p>
+  <p>The correct answer is "${currentCorrectAnswer}".</p>
+  <p>You've currently answered ${store.totalCorrect} out of ${store.questionNumber + 1} correct.</p>
+  <p>Please click the "Continue" button to continue the quiz.</p>
+  <button type="submit" id="continue-quiz">Continue</button>
+  </form>
+  `;
 }
 
 function endOfQuizTemplate(){
@@ -195,8 +195,12 @@ function renderQuestionPage(){
   $('main').html(quizQuestionTemplate());
 }
 
-function renderAnswerPage(){
-  $('main').html(answerPageTemplate());
+function renderCorrectAnswerPage(){
+  $('main').html(correctAnswerPageTemplate());
+}
+
+function renderIncorrectAnswerPage(){
+  $('main').html(incorrectAnswerPageTemplate());
 }
 
 function renderEndofQuizPage(){
@@ -213,18 +217,40 @@ function handleQuizStart(){
   })
 }
 
+function noSelectedAnswer(){
+  if(store.undefinedAnswer > 0){
+    console.log('User clicked submit again without selecting an answer.')
+    console.log(store.undefinedAnswer);
+  } else {
+    $('main').append('<p class="bad">Please select an answer and click the "Submit" button.</p>');
+    store.undefinedAnswer++
+    console.log(store.undefinedAnswer);
+    }
+  }
+
 function handleAnswerResult(){
   $('main').on('click', '#submit-answer', e => {
     e.preventDefault();
-    console.log(`question ${store.questionNumber + 1} answered.`);
     const userAnswer = $('input[type="radio"]:checked').val();
     const currentCorrectAnswer = store.questions[store.questionNumber].correctAnswer
     store.userAnswers.push(userAnswer);
+    //If the user clicks the submit button without selecting an answer.
+    if(userAnswer === undefined){
+      noSelectedAnswer();
+    };
+    //If the question is answered right.
     if(userAnswer === currentCorrectAnswer){
+      console.log(`question ${store.questionNumber + 1} answered.`);
       store.totalCorrect++;
-    }
-    // console.log(store.totalCorrect);
-    renderAnswerPage();
+      store.undefinedAnswer = 0;
+      renderCorrectAnswerPage();
+    };
+    //If the question is answered wrong.
+    if(userAnswer != currentCorrectAnswer && userAnswer != undefined){
+      console.log(`question ${store.questionNumber + 1} answered.`);
+      store.undefinedAnswer = 0;
+      renderIncorrectAnswerPage();
+    };
   })
 }
 

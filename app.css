@@ -56,6 +56,11 @@ li {
   text-align: left;
 }
 
+.bad {
+  color: red;
+  font-weight: bold;
+}
+
 label {
   color: #000000;
 }
