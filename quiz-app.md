@@ -1,5 +1,4 @@
 # Quiz App
-___
 
 This quiz app was built utilizing HTML, CSS, JavaScript, and jQuery.
 
